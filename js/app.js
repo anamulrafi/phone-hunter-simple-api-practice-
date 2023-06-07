@@ -39,7 +39,7 @@ const displayPhones = (phones, dataLimit) =>{
                         <div class="card-body">
                           <h5 class="card-title">${phone.phone_name}</h5>
                           <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <button onclick = "loadPhonesDetails('${phone.slug}') " class="btn btn-primary">Show Details</button>
+                        <button onclick = "loadPhonesDetails('${phone.slug}') " class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#phoneDetailModal">Show Details</button>
                          </div>
                     </div>
         `;
@@ -96,7 +96,24 @@ const loadPhonesDetails = async id => {
     const url = `https://openapi.programming-hero.com/api/phone/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data.data);
+    displayPHoneDetails (data.data);
+}
+const displayPHoneDetails = phone =>{
+console.log(phone);
+const modalTitle = document.getElementById('phoneDetailModalLabel');
+modalTitle.innerText = phone.name;
+const modalImage = document.getElementById('modalImage');
+const modalImageTag = document.createElement('div');
+modalImageTag.innerHTML = `
+<img src="${phone.image}" alt="..." class= "">
+<p> <b> Release Date: </b> ${phone.releaseDate ? phone.releaseDate: 'No Release Date Found'}</p>
+<p> Storage: ${phone.mainFeatures ? phone.mainFeatures.storage : 'No Storage Information Found'} </p> 
+<p> Others: ${phone.others ? phone.others.Bluetooth: 'No Bluetooth Information'} </p> 
+`
+/// upor er p tag ta turnery operator maddhome kora hoise
+
+modalImage.appendChild(modalImageTag);
+//modalImage.innerText = phone.image;
 }
 
-//loadPhones();
+loadPhones('apple');

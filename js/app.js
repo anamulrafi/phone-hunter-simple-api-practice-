@@ -116,4 +116,4 @@ modalImage.appendChild(modalImageTag);
 //modalImage.innerText = phone.image;
 }
 
-loadPhones('apple');
+//loadPhones('apple');
